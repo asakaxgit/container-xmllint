@@ -1,4 +1,4 @@
-# xmllint en conteneur
+# xmllint in a container
 
 This image is based on the minimalist Alpine Linux latest
 distribution, to which have been added libxml2 utilities.
@@ -8,8 +8,7 @@ Install Docker
 --------------
 
 See
-[docker-install](https://duckduckgo.com/l/?kh=-1&uddg=https%3A%2F%2Fdocs.docker.com%2Flinux%2Fstep_one%2F
-the corresponding documentation.)
+[the corresponding documentation.](https://docs.docker.com/linux/step_one/)
 
 
 Install requirements
@@ -34,8 +33,7 @@ You can change the names, but you will have to update the corresponding
 *COPY* line of the Dockerfile.
 
 You finally need to download the relevant packages from
-[alpine-repository](http://dl-2.alpinelinux.org/alpine/latest-stable/main/x86_64/
-the Alpine packages repository):
+[the latest Alpine packages repository](http://dl-2.alpinelinux.org/alpine/latest-stable/main/x86_64/):
 
 * [APKINDEX.tar.gz](http://dl-2.alpinelinux.org/alpine/latest-stable/main/x86_64/APKINDEX.tar.gz)
 
@@ -74,7 +72,7 @@ you want to change the mount point in the container, you should also
 alter the *WORKDIR* line in the Dockerfile or give the absolute paths
 of all your files.
 
-    # docker run -v /absolute/host/path/to/xml/folder/:/xml/:ro xmllint file1.xml
+    # docker run -v /absolute/host/path/to/xml/folder/:/xml/:ro ${image} xmllint file1.xml
 
 The validator is `xmllint`. Note that for security reason, the volume
 should be mounted read-only, so that noone could alter it from the
@@ -102,13 +100,13 @@ To use this script, two environment variables must be set (and exported
 to the script's process):
 
 * `CONTAINER_XMLLINT_IMAGE` is the name or id of the image that
-  contains libxml2 tools ;
+  contains libxml2 tools
 
 * `CONTAINER_XMLLINT_PATH` is the **absolute** path to the folder
   containing the files to validate.
 
-Be careful of xmllint's messages: a file not found could means an
-incorrect `CONTAINER_XMLLINT_PATH`. Run a sh command to debug.
+Be careful of xmllint's messages: a file not found can mean an
+incorrect `CONTAINER_XMLLINT_PATH`. Run a `sh` command to debug.
 
 
 
