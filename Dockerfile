@@ -5,27 +5,20 @@
 # FRANCE
 
 # Base distribution
-FROM alpine
+FROM alpine:latest
+
+ARG REPO_BASE=http://nl.alpinelinux.org/alpine/v3.7/main/x86_64/
 
 # Not maintained anymore
 
 # Description
 LABEL description="Latest Alpine base image with libxml2 utilities."
 
-# Copy the relevant packages into the container
-COPY context/x86_64/APKINDEX.tar.gz \
-     context/x86_64/libxml2-*.apk \
-     /apk/x86_64/
-
-# Change the repository
-RUN echo "/apk" > /etc/apk/repositories
-
-# Install packages
-RUN ["/sbin/apk", "update"]
-RUN ["/sbin/apk", "add", "libxml2", "libxml2-utils"]
+# Add libxml2 using apk.
+RUN apk add libxml2-utils
 
 # Default working directory
 WORKDIR /xml
 
 # Default command
-CMD ["/usr/bin/xmllint"]
+CMD ["/usr/bin/xmllint", "--valid" , "/xml/target.xml"]
